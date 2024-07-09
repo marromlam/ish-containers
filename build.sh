@@ -8,6 +8,7 @@ IMAGE_NAME="x86-ish-alpine-$IMAGE_NUMBER"
 # IMAGE_NUMBER="3"
 
 docker build --no-cache -t $IMAGE_NAME .
+# docker build -t $IMAGE_NAME .
 
 docker rm test
 docker run --privileged --name test $IMAGE_NAME sh
