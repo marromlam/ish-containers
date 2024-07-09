@@ -1,0 +1,7 @@
+export GOMAXPROCS=1
+export CGO_ENABLED=1
+export GOOS=linux
+export GOARCH=386
+
+
+export PATH=/opt/local/bin:/usr/local/bin:$PATH
