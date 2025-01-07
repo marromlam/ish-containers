@@ -19,7 +19,3 @@ jobs:
         docker rm test
         docker run --privileged --name test x86_ish_alpine sh
         docker cp test:/tmp/ish-fs.tar.gz x86_ish_alpine.tar.gz
-    - name: Upload Docker image
-      uses: actions/upload-artifact@v2
-      with:
-        name: x86_ish_alpine.tar.gz
