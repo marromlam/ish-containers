@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 alpinish:2.0
+FROM --platform=linux/amd64 alpinish:0.0
 
 
 ENV LANG=C.UTF-8

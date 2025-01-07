@@ -13,9 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build Docker image
-      run: docker build --no-cache -t x86_ish_alpine .
+      run: |
+        docker image import default/alpine.tar.gz alpinish:0.0
+        docker build --no-cache -t x86_ish_alpine .
     - name: Convert image to tar
       run: |
         docker rm test
         docker run --privileged --name test x86_ish_alpine sh
-        docker cp test:/tmp/ish-fs.tar.gz x86_ish_alpine.tar.gz
+        docker cp test:/tmp/ish-fs.tar.gz alpinish.tar.gz
