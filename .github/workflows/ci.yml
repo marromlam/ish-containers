@@ -1,0 +1,25 @@
+# create a workflow that runs on ubuntu 32 bit and runs docker build to generate
+# an image the output of this workflow is a tar file that can be used as an
+# image in the iSH app
+#
+
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 32 bit
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Docker image
+      run: docker build --no-cache -t x86_ish_alpine .
+    - name: Convert image to tar
+      run:
+        - docker rm test
+        - docker run --privileged --name test x86_ish_alpine sh
+        - docker cp test:/tmp/ish-fs.tar.gz x86_ish_alpine.tar.gz
+    - name: Upload Docker image
+      uses: actions/upload-artifact@v2
+      with:
+        name: x86_ish_alpine.tar.gz
