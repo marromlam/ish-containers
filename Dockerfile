@@ -175,9 +175,9 @@ RUN    cd /home/marcos/Projects/personal \
     && ln -sf /home/marcos/Projects/dotfiles/files/.config/tmux/theme.conf /home/marcos/.config/tmux
 
 # Adding tools
-ADD bin /opt/local/bin
-ADD nvim /home/marcos/.config/nvim
-ADD extra /opt/loca/extra
+ADD ./bin /opt/local/bin
+ADD ./nvim /home/marcos/.config/nvim
+ADD ./extra /opt/local/extra
 
 
 # }}}
