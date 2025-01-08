@@ -22,6 +22,7 @@ RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/main/' >> /etc/apk/reposit
 RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/community/' >> /etc/apk/repositories
 # RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/community/' >> /etc/apk/repositories
 RUN apk update
+RUN mkdir /opt/local/bin
 
 # -------------------------------------------------------------------------------
 # Install python, pip, numpy and matplotlib {{{
