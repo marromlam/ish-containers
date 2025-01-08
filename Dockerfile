@@ -176,7 +176,7 @@ RUN    cd /home/marcos/Projects/personal \
 
 # Adding tools
 ADD ./bin /opt/local/bin
-ADD ./nvim /home/marcos/.config/nvim
+# ADD ./nvim /home/marcos/.config/nvim
 ADD ./extra /opt/local/extra
 
 
