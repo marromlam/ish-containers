@@ -18,6 +18,5 @@ jobs:
         docker build --no-cache -t x86_ish_alpine .
     - name: Convert image to tar
       run: |
-        docker rm test
         docker run --privileged --name test x86_ish_alpine sh
         docker cp test:/tmp/ish-fs.tar.gz alpinish.tar.gz
