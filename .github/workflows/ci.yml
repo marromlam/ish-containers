@@ -29,11 +29,11 @@ jobs:
     - name: Generate artifact name
       id: generate-name
       run: |
-        echo $((git describe --tags --abbrev=0 2> /dev/null) || echo nightly)
+        echo "$(git describe --tags --abbrev=0 || echo nightly)"
 
     - name: Upload image
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: alpinish-${{ steps.generate-name.outputs.artifact }}
+        name: ${{ steps.generate-name.outputs.artifact }}
         path: alpinish.tar.gz
 
