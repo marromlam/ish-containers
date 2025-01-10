@@ -34,7 +34,7 @@ jobs:
     - name: Upload image
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.name }}
+        name: ${{ env.name }}.tar.gz
         path: alpinish.tar.gz
 
     - name: Release image
@@ -43,5 +43,7 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
       with:
         asset_path: alpinish.tar.gz
-        asset_name: ${{ env.name }}
+        asset_name: ${{ env.name }}.tar.gz
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_content_type: application/gzip
 
