@@ -5,7 +5,12 @@
 
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -20,3 +25,15 @@ jobs:
       run: |
         docker run --privileged --name test x86_ish_alpine sh
         docker cp test:/tmp/ish-fs.tar.gz alpinish.tar.gz
+
+    - name: Generate artifact name
+      id: generate-name
+      run: |
+        echo $((git describe --tags --abbrev=0 2> /dev/null) || echo nightly)
+
+    - name: Upload image
+      uses: actions/upload-artifact@v2
+      with:
+        name: alpinish-${{ steps.generate-name.outputs.artifact }}
+        path: alpinish.tar.gz
+
