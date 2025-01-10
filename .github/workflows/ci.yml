@@ -32,7 +32,7 @@ jobs:
         echo $((git describe --tags --abbrev=0 2> /dev/null) || echo nightly)
 
     - name: Upload image
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: alpinish-${{ steps.generate-name.outputs.artifact }}
         path: alpinish.tar.gz
