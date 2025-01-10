@@ -29,7 +29,7 @@ jobs:
     - name: Generate artifact name
       id: generate-name
       run: |
-        echo "$(git describe --tags --abbrev=0 || echo nightly)"
+        echo "alpinish-$(git describe --tags --abbrev=0 2>/dev/null || echo nightly)"
 
     - name: Upload image
       uses: actions/upload-artifact@v4
