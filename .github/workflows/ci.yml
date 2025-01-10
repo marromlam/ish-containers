@@ -29,12 +29,12 @@ jobs:
     - name: Generate artifact name
       id: generate-name
       run: |
-        echo "alpinish-$(git describe --tags --abbrev=0 2>/dev/null || echo nightly)"
+        echo "name=alpinish-$(git describe --tags --abbrev=0 2>/dev/null || echo nightly)" >> $GITHUB_ENV
 
     - name: Upload image
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ steps.generate-name.outputs.artifact }}
+        name: ${{ env.name }}
         path: alpinish.tar.gz
 
     - name: Release image
@@ -43,5 +43,5 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
       with:
         asset_path: alpinish.tar.gz
-        asset_name: ${{ steps.generate-name.outputs.artifact }}
+        asset_name: ${{ env.name }}
 
