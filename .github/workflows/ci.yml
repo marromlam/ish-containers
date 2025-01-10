@@ -37,3 +37,11 @@ jobs:
         name: ${{ steps.generate-name.outputs.artifact }}
         path: alpinish.tar.gz
 
+    - name: Release image
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        asset_path: alpinish.tar.gz
+        asset_name: ${{ steps.generate-name.outputs.artifact }}
+
