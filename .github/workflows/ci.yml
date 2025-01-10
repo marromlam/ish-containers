@@ -46,6 +46,6 @@ jobs:
         with:
           asset_path: alpinish.tar.gz
           asset_name: ${{ env.name }}.tar.gz
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_content_type: application/gzip
 
