@@ -16,34 +16,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build Docker image
-      run: |
-        docker image import default/alpine.tar.gz alpinish:0.0
-        docker build --no-cache -t x86_ish_alpine .
-    - name: Convert image to tar
-      run: |
-        docker run --privileged --name test x86_ish_alpine sh
-        docker cp test:/tmp/ish-fs.tar.gz alpinish.tar.gz
+      - uses: actions/checkout@v3
+      - name: Build Docker image
+        run: |
+          docker image import default/alpine.tar.gz alpinish:0.0
+          docker build --no-cache -t x86_ish_alpine .
 
-    - name: Generate artifact name
-      id: generate-name
-      run: |
-        echo "name=alpinish-$(git describe --tags --abbrev=0 2>/dev/null || echo nightly)" >> $GITHUB_ENV
+      - name: Convert image to tar
+        run: |
+          docker run --privileged --name test x86_ish_alpine sh
+          docker cp test:/tmp/ish-fs.tar.gz alpinish.tar.gz
 
-    - name: Upload image
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.name }}.tar.gz
-        path: alpinish.tar.gz
+      - name: Generate artifact name
+        id: generate-name
+        run: |
+          echo "name=alpinish-$(git describe --tags --abbrev=0 2>/dev/null || echo nightly)" >> $GITHUB_ENV
 
-    - name: Release image
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        asset_path: alpinish.tar.gz
-        asset_name: ${{ env.name }}.tar.gz
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_content_type: application/gzip
+      - name: Upload image
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.name }}.tar.gz
+          path: alpinish.tar.gz
+
+      - name: Release image
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          asset_path: alpinish.tar.gz
+          asset_name: ${{ env.name }}.tar.gz
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_content_type: application/gzip
 
